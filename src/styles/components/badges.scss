@@ -1,0 +1,11 @@
+$variants: (
+  primary: $primary-color,
+  secondary: $secondary-color,
+  red: red,
+);
+
+@each $variant, $color in $variants {
+  .badge-#{$variant} {
+    @include badge-variant($color);
+  }
+}
