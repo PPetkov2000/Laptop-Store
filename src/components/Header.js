@@ -1,10 +1,10 @@
 import React from "react";
 import Navigation from "./Navigation";
 
-const Header = () => {
+const Header = ({ cartItems }) => {
   return (
     <header className="header">
-      <Navigation />
+      <Navigation cartItems={cartItems} />
     </header>
   );
 };
