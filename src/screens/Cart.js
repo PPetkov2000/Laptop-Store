@@ -1,45 +1,51 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 import CartItem from "../components/CartItem";
-import Loader from "../components/Loader";
-import { commerce } from "../lib/commerce";
 
-const Cart = () => {
-  const [cart, setCart] = useState();
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  async function fetchCart() {
-    try {
-      const data = await commerce.cart.retrieve();
-      setCart(data);
-      setLoading(false);
-    } catch (error) {
-      setError(error.message);
-      setLoading(false);
-      console.log(error);
-    }
-  }
-
-  useEffect(() => {
-    fetchCart();
-  }, []);
-
-  console.log(cart);
-
+const Cart = ({ cart, handleRemoveItem, handleEmptyCart }) => {
   return (
     <section className="cart">
       <h1 className="cart__title">Your Cart</h1>
-      {loading ? (
-        <Loader />
-      ) : error ? (
-        { error }
-      ) : (
-        <article className="cart__wrapper">
-          {cart.line_items.map((item) => (
-            <CartItem key={item.id} item={item} />
-          ))}
-        </article>
-      )}
+      <div className="cart__content">
+        {cart.line_items.length === 0 ? (
+          <h2 style={{ textAlign: "center" }}>No items</h2>
+        ) : (
+          <>
+            <article className="cart__items">
+              {cart.line_items.map((item) => (
+                <CartItem
+                  key={item.id}
+                  item={item}
+                  removeItem={() => handleRemoveItem(item.id)}
+                />
+              ))}
+            </article>
+            <article className="cart__summary">
+              <h2 className="cart__summary-title">Summary</h2>
+              <p className="cart__summary-text">
+                Subtotal <span>{cart.subtotal.formatted_with_symbol}</span>
+              </p>
+              <p className="cart__summary-text">
+                Total <span>$1000.00</span>
+              </p>
+              <div className="cart__summary-actions">
+                <button
+                  className="cart__summary-clear-cart-button button-red"
+                  onClick={handleEmptyCart}
+                >
+                  Clear Cart
+                </button>
+                <Link
+                  to="/checkout"
+                  className="cart__summary-checkout-button button-secondary"
+                >
+                  Checkout
+                </Link>
+              </div>
+            </article>
+          </>
+        )}
+      </div>
     </section>
   );
 };
