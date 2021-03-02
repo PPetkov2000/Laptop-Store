@@ -1,5 +1,10 @@
 $primary-color: #e6d7d7;
 $secondary-color: #bd7c03;
+$primary-color-darker: darken($primary-color, 15%);
+
+$primary-box-shadow: 0 0 6px #000;
+
+$main-transition: 0.3s ease;
 
 // Media Queries
 $mq-400-down: "only screen and (max-width: 400px)";
