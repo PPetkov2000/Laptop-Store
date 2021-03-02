@@ -17,7 +17,7 @@ const Checkout = ({ cart }) => {
   const nextStep = () => setActiveStep((prevActiveStep) => prevActiveStep + 1);
 
   useEffect(() => {
-    if (cart.id) {
+    if (cart?.id) {
       const generateToken = async () => {
         try {
           const token = await commerce.checkout.generateToken(cart.id, {
@@ -37,7 +37,7 @@ const Checkout = ({ cart }) => {
     activeStep === 0 ? (
       <CheckoutForm
         checkoutToken={checkoutToken}
-        shippingData={shippingData}
+        setShippingData={setShippingData}
         nextStep={nextStep}
       />
     ) : (
@@ -51,15 +51,22 @@ const Checkout = ({ cart }) => {
 
   return (
     <div className="checkout">
-      <h2 className="checkout__title">Checkout</h2>
-      {steps.map((step) => (
-        <h3 key={step}>{step}</h3>
-      ))}
-      {activeStep === steps.length ? (
-        <Confirmation />
-      ) : (
-        checkoutToken && <Form />
-      )}
+      <div className="content-wrapper">
+        <h1 className="checkout__title">Checkout</h1>
+        <div className="checkout__stepper">
+          <h3 style={{ color: activeStep >= 0 ? "black" : "" }}>
+            Shipping Address
+          </h3>
+          <h3 style={{ color: activeStep > 0 ? "black" : "" }}>
+            Payment Details
+          </h3>
+        </div>
+        {activeStep === steps.length ? (
+          <Confirmation />
+        ) : (
+          checkoutToken && <Form />
+        )}
+      </div>
     </div>
   );
 };
