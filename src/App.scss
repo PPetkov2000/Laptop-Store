@@ -229,13 +229,31 @@ main {
       text-align: center;
     }
 
-    &-fields {
+    &-inputs {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       column-gap: 1rem;
       row-gap: 0.8rem;
 
-      input,
+      input {
+        padding: 0.5rem 0.8rem;
+      }
+    }
+
+    &-selects {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 1rem;
+    }
+
+    &-select-wrapper {
+      display: grid;
+      margin-top: 1rem;
+
+      label {
+        margin-bottom: 0.5rem;
+      }
+
       select {
         padding: 0.5rem 0.8rem;
       }
@@ -257,5 +275,63 @@ main {
       padding: 0.5rem 1rem;
       text-transform: uppercase;
     }
+  }
+}
+
+.payment-method {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 1rem;
+
+  &__wrapper {
+    background-color: $primary-color;
+    padding: 1rem;
+    border-radius: 5px;
+  }
+
+  &__title {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  &__form {
+    &-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+    }
+
+    &-back-button {
+      padding: 0.5rem 1rem;
+      text-transform: uppercase;
+    }
+
+    &-submit-button {
+      padding: 0.5rem 1rem;
+      text-transform: uppercase;
+    }
+  }
+}
+
+.order-review {
+  background-color: $primary-color;
+  padding: 1rem;
+  border-radius: 5px;
+
+  &__title {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  &__product {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+
+  &__total {
+    display: flex;
+    justify-content: space-between;
   }
 }
