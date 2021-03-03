@@ -2,7 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import CartItem from "../components/CartItem";
 
-const Cart = ({ cart, handleRemoveItem, handleEmptyCart }) => {
+const Cart = ({
+  cart,
+  handleUpdateCartQuantity,
+  handleRemoveItem,
+  handleEmptyCart,
+}) => {
   return (
     <section className="cart">
       <h1 className="cart__title">Your Cart</h1>
