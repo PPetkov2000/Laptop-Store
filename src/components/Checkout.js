@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 
 const steps = ["Shipping Address", "Payment Details"];
 
-const Checkout = ({ cart }) => {
+const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
   const [activeStep, setActiveStep] = useState(0);
   const [checkoutToken, setCheckoutToken] = useState(null);
   const [shippingData, setShippingData] = useState({});
@@ -31,7 +31,7 @@ const Checkout = ({ cart }) => {
       };
       generateToken();
     }
-  }, [cart]);
+  }, [cart, activeStep, history]);
 
   const Form = () =>
     activeStep === 0 ? (
@@ -46,6 +46,7 @@ const Checkout = ({ cart }) => {
         shippingData={shippingData}
         nextStep={nextStep}
         backStep={backStep}
+        onCaptureCheckout={onCaptureCheckout}
       />
     );
 
@@ -62,7 +63,7 @@ const Checkout = ({ cart }) => {
           </h3>
         </div>
         {activeStep === steps.length ? (
-          <Confirmation />
+          <Confirmation order={order} error={error} />
         ) : (
           checkoutToken && <Form />
         )}
