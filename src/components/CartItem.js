@@ -1,6 +1,6 @@
 import React from "react";
 
-const CartItem = ({ item }) => {
+const CartItem = ({ item, removeItem }) => {
   return (
     <div className="item__card">
       <img
@@ -10,7 +10,10 @@ const CartItem = ({ item }) => {
       />
       <p className="item__card-text">{item.product_name}</p>
       <p className="item__card-text">{item.price.formatted_with_symbol}</p>
-      <i className="fa fa-trash"></i>
+      <i
+        className="fa fa-trash icon-red item__card-delete-icon"
+        onClick={removeItem}
+      ></i>
     </div>
   );
 };
