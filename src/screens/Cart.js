@@ -8,30 +8,28 @@ const Cart = ({
   handleRemoveItem,
   handleEmptyCart,
 }) => {
+  const cartIsEmpty = cart.line_items.length === 0;
+
   return (
     <section className="cart">
-      <h1 className="cart__title">Your Cart</h1>
-      <div className="cart__content">
-        {cart.line_items.length === 0 ? (
-          <h2 style={{ textAlign: "center" }}>No items</h2>
-        ) : (
-          <>
-            <article className="cart__items">
-              {cart.line_items.map((item) => (
-                <CartItem
-                  key={item.id}
-                  item={item}
-                  removeItem={() => handleRemoveItem(item.id)}
-                />
-              ))}
-            </article>
+      <div className="content-wrapper">
+        <h1 className="cart__title">Your Cart</h1>
+        {cartIsEmpty && <h2 style={{ textAlign: "center" }}>No items</h2>}
+        <div className="cart__content">
+          <article className="cart__items">
+            {cart.line_items.map((item) => (
+              <CartItem
+                key={item.id}
+                item={item}
+                removeItem={() => handleRemoveItem(item.id)}
+              />
+            ))}
+          </article>
+          {!cartIsEmpty && (
             <article className="cart__summary">
               <h2 className="cart__summary-title">Summary</h2>
               <p className="cart__summary-text">
                 Subtotal <span>{cart.subtotal.formatted_with_symbol}</span>
-              </p>
-              <p className="cart__summary-text">
-                Total <span>$1000.00</span>
               </p>
               <div className="cart__summary-actions">
                 <button
@@ -48,8 +46,8 @@ const Cart = ({
                 </Link>
               </div>
             </article>
-          </>
-        )}
+          )}
+        </div>
       </div>
     </section>
   );
