@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { commerce } from "../lib/commerce";
 import FormInput from "./FormInput";
 
-const CheckoutForm = ({ checkoutToken, setShippingData, nextStep }) => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+const CheckoutForm = ({ checkoutToken, next }) => {
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -33,17 +33,10 @@ const CheckoutForm = ({ checkoutToken, setShippingData, nextStep }) => {
     setShippingSubdivision(Object.keys(subdivisions)[0]);
   };
 
-  const fetchShippingOptions = async (
-    checkoutTokenId,
-    country,
-    stateProvince = null
-  ) => {
+  const fetchShippingOptions = async (checkoutTokenId, country, region) => {
     const options = await commerce.checkout.getShippingOptions(
       checkoutTokenId,
-      {
-        country,
-        region: stateProvince,
-      }
+      { country, region }
     );
     setShippingOptions(options);
     setShippingOption(options[0]?.id);
@@ -64,12 +57,12 @@ const CheckoutForm = ({ checkoutToken, setShippingData, nextStep }) => {
         shippingCountry,
         shippingSubdivision
       );
-  }, [checkoutToken, shippingCountry, shippingSubdivision]);
+  }, [shippingSubdivision]);
 
   const handleSubmit = () => {
-    setShippingData({
-      firstName,
-      lastName,
+    next({
+      firstname,
+      lastname,
       email,
       address,
       city,
@@ -78,7 +71,6 @@ const CheckoutForm = ({ checkoutToken, setShippingData, nextStep }) => {
       shippingSubdivision,
       shippingOption,
     });
-    nextStep();
   };
 
   return (
@@ -86,40 +78,40 @@ const CheckoutForm = ({ checkoutToken, setShippingData, nextStep }) => {
       <h2 className="checkout__form-title">Shipping Address</h2>
       <div className="checkout__form-inputs">
         <FormInput
-          name="firstName"
+          name="firstname"
           placeholder="First name"
-          value={firstName}
-          onChange={(e) => setFirstName(e.targe.value)}
+          value={firstname}
+          onChange={(e) => setFirstname(e.target.value)}
         />
         <FormInput
-          name="lastName"
+          name="lastname"
           placeholder="Last name"
-          value={lastName}
-          onChange={(e) => setLastName(e.targe.value)}
+          value={lastname}
+          onChange={(e) => setLastname(e.target.value)}
         />
         <FormInput
           name="email"
           placeholder="Email"
           value={email}
-          onChange={(e) => setEmail(e.targe.value)}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <FormInput
           name="address"
           placeholder="Address"
           value={address}
-          onChange={(e) => setAddress(e.targe.value)}
+          onChange={(e) => setAddress(e.target.value)}
         />
         <FormInput
           name="city"
           placeholder="City"
           value={city}
-          onChange={(e) => setCity(e.targe.value)}
+          onChange={(e) => setCity(e.target.value)}
         />
         <FormInput
           name="postalCode"
           placeholder="Postal code"
           value={postalCode}
-          onChange={(e) => setPostalCode(e.targe.value)}
+          onChange={(e) => setPostalCode(e.target.value)}
         />
       </div>
       <div className="checkout__form-selects">
