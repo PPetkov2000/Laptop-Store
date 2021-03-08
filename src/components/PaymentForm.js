@@ -7,9 +7,7 @@ import {
 import { loadStripe } from "@stripe/stripe-js";
 import OrderReview from "./OrderReview";
 
-const stripePromise = loadStripe(
-  "pk_test_51IQyrMCrXr4TyFDuDtgiLhC53AhlJUjxDN8hboY2UN505Egi3F063ij3LUcddSqTQQ2lMokMAmk7IVCwpGzwIcDq00nqBdgEsS"
-);
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
 const PaymentForm = ({
   checkoutToken,
@@ -17,8 +15,8 @@ const PaymentForm = ({
   backStep,
   nextStep,
   onCaptureCheckout,
+  timeout,
 }) => {
-  console.log(shippingData);
   const handleSubmit = async (event, elements, stripe) => {
     event.preventDefault();
 
@@ -30,7 +28,6 @@ const PaymentForm = ({
       type: "card",
       card: cardElement,
     });
-    console.log(paymentMethod);
 
     if (error) {
       console.log(error);
@@ -47,16 +44,17 @@ const PaymentForm = ({
           street: shippingData.address,
           town_city: shippingData.city,
           country: shippingData.shippingCountry,
-          country_state: shippingData.shippingSubdivision,
-          postal_zip_code: shippingData.zip,
+          county_state: shippingData.shippingSubdivision,
+          postal_zip_code: shippingData.postalCode,
         },
-        fullElement: { shipping_method: shippingData.shippingOption },
+        fulfillment: { shipping_method: shippingData.shippingOption },
         payment: {
           gateway: "stripe",
           stripe: { payment_method_id: paymentMethod.id },
         },
       };
       onCaptureCheckout(checkoutToken.id, orderData);
+      timeout();
       nextStep();
     }
   };
