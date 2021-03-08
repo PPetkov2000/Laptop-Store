@@ -11,6 +11,7 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
   const [activeStep, setActiveStep] = useState(0);
   const [checkoutToken, setCheckoutToken] = useState(null);
   const [shippingData, setShippingData] = useState({});
+  const [isFinished, setIsFinished] = useState(false);
   const history = useHistory();
 
   const backStep = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
@@ -31,15 +32,22 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
       };
       generateToken();
     }
-  }, [cart, activeStep, history]);
+  }, [cart]);
+
+  const next = (data) => {
+    setShippingData(data);
+    nextStep();
+  };
+
+  const timeout = () => {
+    setTimeout(() => {
+      setIsFinished(true);
+    }, 3000);
+  };
 
   const Form = () =>
     activeStep === 0 ? (
-      <CheckoutForm
-        checkoutToken={checkoutToken}
-        setShippingData={setShippingData}
-        nextStep={nextStep}
-      />
+      <CheckoutForm checkoutToken={checkoutToken} next={next} />
     ) : (
       <PaymentForm
         checkoutToken={checkoutToken}
@@ -47,11 +55,12 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
         nextStep={nextStep}
         backStep={backStep}
         onCaptureCheckout={onCaptureCheckout}
+        timeout={timeout}
       />
     );
 
   return (
-    <div className="checkout">
+    <section className="checkout">
       <div className="content-wrapper">
         <h1 className="checkout__title">Checkout</h1>
         <div className="checkout__stepper">
@@ -63,12 +72,12 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
           </h3>
         </div>
         {activeStep === steps.length ? (
-          <Confirmation order={order} error={error} />
+          <Confirmation order={order} error={error} isFinished={isFinished} />
         ) : (
           checkoutToken && <Form />
         )}
       </div>
-    </div>
+    </section>
   );
 };
 
