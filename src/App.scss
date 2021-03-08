@@ -16,10 +16,6 @@ main {
 }
 
 .products {
-  max-width: 1300px;
-  width: 80%;
-  margin: 1rem auto;
-
   &__wrapper {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -28,6 +24,10 @@ main {
 
     @media #{$mq-900-down} {
       grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media #{$mq-620-down} {
+      grid-template-columns: none;
     }
   }
 
@@ -77,10 +77,6 @@ main {
 }
 
 .cart {
-  max-width: 1300px;
-  width: 80%;
-  margin: 1rem auto;
-
   &__title {
     padding: 1rem;
     text-align: center;
@@ -88,7 +84,7 @@ main {
 
   &__content {
     display: grid;
-    grid-template-columns: 1fr 25%;
+    grid-template-columns: 1fr 30%;
     column-gap: 2rem;
 
     @media #{$mq-1000-down} {
@@ -96,8 +92,6 @@ main {
       row-gap: 5rem;
     }
   }
-
-  // &__items {  }
 
   &__summary {
     background-color: $primary-color;
@@ -126,6 +120,7 @@ main {
     &-actions {
       display: flex;
       margin-top: 0.5rem;
+      justify-content: space-between;
     }
 
     &-clear-cart-button {
@@ -252,6 +247,10 @@ main {
 
       label {
         margin-bottom: 0.5rem;
+
+        @media #{$mq-620-down} {
+          font-size: 0.9rem;
+        }
       }
 
       select {
@@ -333,5 +332,23 @@ main {
   &__total {
     display: flex;
     justify-content: space-between;
+  }
+}
+
+.confirmation {
+  background-color: $primary-color;
+  width: 60%;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  margin: 0 auto;
+  border-radius: 5px;
+
+  &__link {
+    margin-top: 1rem;
+    padding: 0.6rem 2rem;
   }
 }
