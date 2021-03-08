@@ -7,12 +7,8 @@ const Navigation = ({ cartItems }) => {
   return (
     <nav className="navbar">
       <div className="navbar__brand">
-        <Link to="/">
-          <img
-            src="./images/app-logo.png"
-            alt="logo"
-            className="navbar__brand-logo"
-          />
+        <Link to="/" className="navbar__brand-link">
+          Commerce
         </Link>
       </div>
       <i
