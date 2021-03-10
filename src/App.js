@@ -95,6 +95,7 @@ function App() {
               order={order}
               onCaptureCheckout={handleCaptureCheckout}
               error={errorMessage}
+              emptyCart={handleEmptyCart}
             />
           </Route>
           <Route path="*" component={PageNotFound} />
