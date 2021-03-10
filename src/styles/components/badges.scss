@@ -1,9 +1,4 @@
-$variants: (
-  primary: $primary-color,
-  secondary: $secondary-color,
-  primary-darker: $primary-color-darker,
-  red: red,
-);
+@import "./component-variants.scss";
 
 @each $variant, $color in $variants {
   .badge-#{$variant} {
