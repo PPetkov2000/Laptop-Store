@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 
 const steps = ["Shipping Address", "Payment Details"];
 
-const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
+const Checkout = ({ cart, order, onCaptureCheckout, error, emptyCart }) => {
   const [activeStep, setActiveStep] = useState(0);
   const [checkoutToken, setCheckoutToken] = useState(null);
   const [shippingData, setShippingData] = useState({});
@@ -42,6 +42,7 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
   const timeout = () => {
     setTimeout(() => {
       setIsFinished(true);
+      emptyCart();
     }, 3000);
   };
 
