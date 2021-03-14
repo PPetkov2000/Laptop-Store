@@ -1,0 +1,7 @@
+@import "./component-variants.scss";
+
+@each $variant, $color in $variants {
+  .alert-#{$variant} {
+    @include alert-variant($color);
+  }
+}
