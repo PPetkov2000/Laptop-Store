@@ -85,3 +85,17 @@
     transform: scale(1.1);
   }
 }
+
+@mixin alert-variant($bgColor) {
+  background-color: $bgColor;
+  color: #fff;
+  padding: 1rem;
+  border-radius: 5px;
+  position: relative;
+
+  &::after {
+    content: "X";
+    position: absolute;
+    right: 1rem;
+  }
+}
