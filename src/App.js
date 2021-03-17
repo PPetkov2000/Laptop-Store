@@ -5,7 +5,6 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import PageNotFound from "./components/PageNotFound";
 import Products from "./screens/Products";
-import ProductDetails from "./screens/ProductDetails";
 import Cart from "./screens/Cart";
 import Checkout from "./components/Checkout";
 import { commerce } from "./lib/commerce";
@@ -77,9 +76,6 @@ function App() {
         <Switch>
           <Route path="/" exact>
             <Products products={products} handleAddToCart={handleAddToCart} />
-          </Route>
-          <Route path="/products/:id" exact>
-            <ProductDetails />
           </Route>
           <Route path="/cart" exact>
             <Cart
